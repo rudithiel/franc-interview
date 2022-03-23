@@ -1,8 +1,8 @@
 <html>
     <body>
-        <h1>Hello!
+        <h1>
         {% if username %}
-            {{ username }}
+            {{ username }}'s Timeline
         {% endif %}
         </h1>
         {% if not username %}
@@ -11,10 +11,16 @@
             <p>Posts can be found <a href="/posts">here</a></p>
             <p>Users and there follows can be found <a href="/users">here</a></p>
         {% else %}
-            <p>Your tweets:</p>
-            <ul>
-                <li>first tweet</li>
-            </ul>
+            {% if posts %}
+                <ul>
+                    {% for post in posts %}
+                        <li>
+                            <h2>{{post['status'] }}</h2>
+                            <p>Posted on {{post['time']}} by <a href="/?username={{post['author']}}">{{post['author']}}</a></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         {% endif %}
     </body>
 </html>
